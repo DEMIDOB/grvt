@@ -3,7 +3,7 @@ const K = 100;
 const friction = 0.5;
 
 let w;
-let newPointMass = 25;
+let newPointMass = 100;
 let renderOffsetSpeed = 0;
 
 let simulationRunning = true,
