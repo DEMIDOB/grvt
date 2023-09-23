@@ -65,6 +65,7 @@ class LevelWorld extends World {
         this.goal = createVector(random(width), random(height));
         if (this.pointExists(this.followedPointId)) {
             this.goal.sub(width / 2, height / 2);
+            this.goal.div(2);
             this.goal.add(this.points[this.followedPointId].getPos());
         }
     }
