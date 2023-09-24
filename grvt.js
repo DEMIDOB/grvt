@@ -18,7 +18,7 @@ function setup() {
     if (window.innerHeight < window.innerWidth) {
         createCanvas(window.innerWidth, window.innerHeight);
     } else {
-        createCanvas(window.innerWidth, window.innerHeight - getEmPixels() * 3);
+        createCanvas(window.innerWidth, window.innerHeight - document.querySelector("#bottom-controls").offsetHeight);
     }
     //fullScreen();
     pixelDensity(displayDensity());
@@ -100,7 +100,7 @@ function draw() {
 }
 
 function mousePressed() {
-    if (mouseButton == LEFT && mouseY < height - getEmPixels() * 3) {
+    if (mouseButton == LEFT && mouseY < height - document.querySelector("#bottom-controls").offsetHeight) {
         spawnNewPoint();
     }
 }
