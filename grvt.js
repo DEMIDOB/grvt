@@ -1,5 +1,5 @@
 const TPS = 60;
-const K = 100;
+const K = 500;
 const friction = 0.5;
 
 let w;
