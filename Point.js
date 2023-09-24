@@ -99,7 +99,7 @@ class Point {
         if (!displayForces)
             return;
 
-        let f = getResForce().mult(100);
+        let f = this.getResForce().mult(100);
         stroke(255, 0, 0);
         strokeWeight(5);
         line(this.pos.x, this.pos.y, this.pos.x + f.x, this.pos.y + f.y);

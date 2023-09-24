@@ -45,9 +45,9 @@ function draw() {
 
     fill(100, 0, 150, 255);
     textAlign(LEFT);
-    textSize(50);
+    textSize(35);
     noStroke();
-    text("Score: " + w.getScore(), 45, 75);
+    text("Score: " + w.getScore(), 45, 45);
 
     if (!simulationRunning) {
         fill(0, 100, 200, 100);
