@@ -8,6 +8,7 @@
 
     <!-- PLEASE NO CHANGES BELOW THIS LINE (UNTIL I SAY SO) -->
     <script language="javascript" type="text/javascript" src="libraries/p5.min.js"></script>
+    <script language="javascript" type="text/javascript" src="libraries/getEmPixels.min.js"></script>
     <script language="javascript" type="text/javascript" src="AccelerationModifier.js"></script>
     <script language="javascript" type="text/javascript" src="Point.js"></script>
     <script language="javascript" type="text/javascript" src="ConnectablePoint.js"></script>
@@ -24,13 +25,83 @@
     <link rel="manifest" href="resources/favicon_io/site.webmanifest">
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap');
+
         body {
             padding: 0;
             margin: 0;
+
+            font-family: 'Inclusive Sans', sans-serif;
         }
+
+        #bottom-controls {
+            position: absolute;
+            bottom: 0;
+            width: 99vw;
+
+            display: flex;
+            justify-content: space-around;
+
+            background-color: rgba(175, 175, 175, 0.3);
+
+            margin: 0;
+            padding: 0.7em;
+        }
+
+        .control {
+            text-align: center;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        .control-key-hint {
+            background-color: rgba(150, 150, 150, 0.7);
+            border-radius: 0.3em;
+            padding: 0.4em;
+            color: white;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .control-description {
+            font-size: 1em;
+        }
+
+        @media(min-width: 768px) {
+            .control {
+                display: flex;
+                align-items: center;
+            }
+
+            .control-key-hint {
+                margin-right: 0.5em;
+                font-size: 1em;
+            }
+
+            .control-description {
+                font-size: 1em;
+            }
+        }
+
     </style>
 </head>
 
 <body>
+    <div id="bottom-controls">
+        <div class="control" onclick="displayForces = !displayForces">
+            <div class="control-key-hint">F</div>
+            <div class="control-description">toggle acceleration</div>
+        </div>
+
+        <div class="control" onclick="requestNewPointMass()">
+            <div class="control-key-hint">M</div>
+            <div class="control-description">change spawn mass</div>
+        </div>
+
+        <div class="control" onclick="resetGame()">
+            <div class="control-key-hint">R</div>
+            <div class="control-description">restart</div>
+        </div>
+    </div>
 </body>
 </html>

@@ -15,12 +15,16 @@ let newConnectionFirstID = -1, newConnectionSecondID = -1;
 let ticksSinceLastConnectionRequest = -1;
 
 function setup() {
-    createCanvas(window.innerWidth, window.innerHeight);
+    if (window.innerHeight < window.innerWidth) {
+        createCanvas(window.innerWidth, window.innerHeight);
+    } else {
+        createCanvas(window.innerWidth, window.innerHeight - getEmPixels() * 3);
+    }
     //fullScreen();
     pixelDensity(displayDensity());
     frameRate(TPS);
 
-    w = new LevelWorld(10);
+    resetGame();
 }
 
 function draw() {
@@ -48,6 +52,11 @@ function draw() {
     textSize(35);
     noStroke();
     text("Score: " + w.getScore(), 45, 45);
+
+    fill(100, 0, 150, 175);
+    textSize(17);
+    text("Current spawn mass: " + newPointMass, 45, 75);
+
 
     if (!simulationRunning) {
         fill(0, 100, 200, 100);
@@ -91,7 +100,7 @@ function draw() {
 }
 
 function mousePressed() {
-    if (mouseButton == LEFT) {
+    if (mouseButton == LEFT && mouseY < height - getEmPixels() * 3) {
         spawnNewPoint();
     }
 }
@@ -139,7 +148,7 @@ function keyPressed() {
         break;
 
     case 'r': case 'к':
-        w = new LevelWorld(10);
+        resetGame();
         break;
 
     case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9':
@@ -174,4 +183,8 @@ function resetNewConnectionRequest() {
     newConnectionSecondID = -1;
     ticksSinceLastConnectionRequest = -1;
     console.log("reset..");
+}
+
+function resetGame() {
+    w = new LevelWorld(10);
 }
