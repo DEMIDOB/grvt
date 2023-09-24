@@ -51,11 +51,11 @@ function draw() {
     textAlign(LEFT);
     textSize(35);
     noStroke();
-    text("Score: " + w.getScore(), 45, 45);
+    text("Score: " + w.getScore(), 30, 45);
 
     fill(100, 0, 150, 175);
     textSize(17);
-    text("Current spawn mass: " + newPointMass, 45, 75);
+    text("Current spawn mass: " + newPointMass, 30, 75);
 
 
     if (!simulationRunning) {
