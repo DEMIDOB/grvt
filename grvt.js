@@ -106,7 +106,9 @@ function mousePressed() {
 }
 
 function touchStarted() {
-    spawnNewPoint();
+    if (mouseY < height - document.querySelector("#bottom-controls").offsetHeight) {
+        spawnNewPoint();
+    }
 }
 
 function spawnNewPoint(withKeyboard = false) {
