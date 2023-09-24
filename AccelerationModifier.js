@@ -9,7 +9,7 @@ class AccelerationModifier {
         let p_j = target;
 
         let i_to_j = p_j.pos.copy().sub(p_i.pos);
-        let d = max(i_to_j.mag(), p_i.mass + p_j.mass);
+        let d = max(i_to_j.mag(), p_i.getRadius() + p_j.getRadius());
         let GOverDCubed = this.G / (d * d * d);
 
         let acc_i = i_to_j.copy().mult( GOverDCubed * p_j.mass);
