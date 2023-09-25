@@ -8,7 +8,7 @@ let renderOffsetSpeed = 0;
 
 let simulationRunning = true,
                 displayForces = false,
-                borders = false,
+                borders = true,
                 newConnectionMode = false;
 
 let newConnectionFirstID = -1, newConnectionSecondID = -1;
@@ -55,7 +55,11 @@ function draw() {
 
     fill(100, 0, 150, 175);
     textSize(17);
-    text("Current spawn mass: " + newPointMass, 30, 75);
+    text("Current spawn mass: " + newPointMass, 30, 80);
+
+    fill(100, 0, 150, 175);
+    textSize(17);
+    text("Mass available: " + w.getMassAvailable(), 30, 100);
 
 
     if (!simulationRunning) {
@@ -118,7 +122,7 @@ function spawnNewPoint(withKeyboard = false) {
 
     let loc = w.getRenderOffset().mult(-1);
     loc.add(mouseX, mouseY);
-    w.createConnectablePoint(loc, newPointMass);
+    w.createLevelPoint(loc, newPointMass);
 }
 
 function keyPressed() {

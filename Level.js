@@ -14,9 +14,10 @@ class LevelWorld extends World {
         this.goalRotationAngle = 0;
         this.followedPointId = 0;
         this.score = 0;
+        this.massAvailable = 425;
 
         this.setRandomGoal();
-        this.createConnectablePoint(createVector(width / 2, height / 2), 25);
+        this.createLevelPoint(createVector(width / 2, height / 2), 25);
     }
 
     getScore() {
@@ -29,16 +30,26 @@ class LevelWorld extends World {
         push();
         translate(this.renderOffset.x, this.renderOffset.y);
 
-        if (this.pointExists(this.followedPointId)) {
+        if (this.isGameOn()) {
             this.points[this.followedPointId].displayForce();
             this.points[this.followedPointId].draw(color(0, 255, 0, 100));
         }
 
         // Draw the goal:
-        if (this.pointExists(0)) {
+        if (this.isGameOn()) {
             fill(100, 0, 150);
             push();
-            translate(this.goal.x, this.goal.y);
+            translate(
+                max(-this.renderOffset.x, min(this.goal.x,  width - this.renderOffset.x)),
+                max(-this.renderOffset.y, min(this.goal.y, height - this.renderOffset.y))
+                );
+
+            if (this.goal.x < -this.renderOffset.x || this.goal.x > width - this.renderOffset.x ||
+                this.goal.y < -this.renderOffset.y || this.goal.y > height - this.renderOffset.y) {
+                fill(255, 200);
+                stroke(100, 0, 150);
+            }
+
             rotate(this.goalRotationAngle);
             this.goalRotationAngle += 0.01;
             rect(-25, -25, 50, 50);
@@ -46,12 +57,11 @@ class LevelWorld extends World {
 
             let player = this.points[0];
             if (player.getPos().sub(this.goal).magSq() < (25 + player.getRadius()) * (25 + player.getRadius())) {
-                ++this.score;
-                this.setRandomGoal();
+                this.reachedTheGoal();
             }
         }
 
-        if (this.pointExists(this.followedPointId)) {
+        if (this.isGameOn()) {
             let fp = this.points[this.followedPointId];
             this.renderOffset = fp.getPos();
             this.renderOffset.mult(-1);
@@ -61,12 +71,40 @@ class LevelWorld extends World {
         pop();
     }
 
+    reachedTheGoal() {
+        this.massAvailable += 1000 * (++this.score);
+        this.setRandomGoal();
+    }
+
+    createLevelPoint(initialPosition, mass) {
+        if (this.massAvailable < mass) {
+            return -1;
+        }
+
+        const newId = this.getNextPointId();
+        const newPoint = new LevelPoint(initialPosition, mass, newId, this.G);
+        this.points[newId] = newPoint;
+
+        this.massAvailable -= mass;
+
+        return newId;
+    }
+
+    isGameOn() {
+        return this.pointExists(this.followedPointId);
+    }
+
+    getMassAvailable() {
+        return this.massAvailable;
+    }
+
     setRandomGoal() {
         this.goal = createVector(random(width), random(height));
-        if (this.pointExists(this.followedPointId)) {
-            this.goal.sub(width / 2, height / 2);
-            this.goal.div(2);
-            this.goal.add(this.points[this.followedPointId].getPos());
+        if (this.isGameOn()) {
+            this.goal = this.goal.sub(width / 2, height / 2);
+            this.goal = this.goal.div(1.5);
+            this.goal = this.goal.add(width / 2, height / 2);
+            // this.goal.add(this.points[this.followedPointId].getPos());
         }
     }
 

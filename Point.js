@@ -52,29 +52,14 @@ class Point {
         this.vel.add(this.acc);
         let realVel = this.vel.copy().div(TPS);
 
-        //float r = this.getMass() / 2;
-
-        if (borders) {
-            if (this.pos.x + realVel.x < radius) {
-                this.vel.x *= -friction;
-                //this.pos.x = r;
-            } else if (this.pos.x + realVel.x > width - radius) {
-                this.vel.x *= -friction;
-                //this.pos.x = width - r;
-            }
-
-            if (this.pos.y + realVel.y < radius) {
-                this.vel.y *= -friction;
-                //this.pos.y = r;
-            } else if (this.pos.y + realVel.y > height - radius) {
-                this.vel.y *= -friction;
-                //this.pos.y = height - r;
-            }
-
-            realVel = this.vel.copy().div(TPS);
-        }
+        realVel = this.modifyMovement(realVel);
 
         this.pos.add(realVel);
+    }
+
+    modifyMovement(realVel) {
+        // no changes by default
+        return realVel;
     }
 
     getDistanceTo(target) {

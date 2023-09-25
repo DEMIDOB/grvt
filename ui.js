@@ -1,6 +1,11 @@
 function requestNewPointMass() {
     try {
-        newPointMass = parseInt(prompt("New points' mass will be..."));
+        let newPointMassParsed = parseInt(prompt("New points' mass will be..."));
+        if (isNaN(newPointMassParsed) || newPointMassParsed < 1) {
+            console.log("Wrong number format!");
+            return;
+        }
+        newPointMass = newPointMassParsed;
     } catch (exc) {
         alert("Wrong number format!");
     }
