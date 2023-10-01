@@ -102,7 +102,7 @@ class LevelWorld extends World {
         return this.massAvailable;
     }
 
-    setRandomGoal(scope = 5) {
+    setRandomGoal(scope = 3) {
         this.goal = createVector(random(width), random(height));
         if (this.isGameOn()) {
             this.goal = this.goal.sub(width / 2, height / 2);
