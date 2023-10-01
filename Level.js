@@ -16,8 +16,8 @@ class LevelWorld extends World {
         this.score = 0;
         this.massAvailable = 425;
 
-        this.setRandomGoal();
         this.createLevelPoint(createVector(width / 2, height / 2), 25);
+        this.setRandomGoal(10);
     }
 
     getScore() {
@@ -68,6 +68,10 @@ class LevelWorld extends World {
             this.renderOffset.add(width / 2, height / 2);
         }
 
+        if (borders.isActive()) {
+            borders.draw();
+        }
+
         pop();
     }
 
@@ -77,7 +81,7 @@ class LevelWorld extends World {
     }
 
     createLevelPoint(initialPosition, mass) {
-        if (this.massAvailable < mass) {
+        if (this.massAvailable < mass && !isGodMode) {
             return -1;
         }
 
@@ -98,11 +102,11 @@ class LevelWorld extends World {
         return this.massAvailable;
     }
 
-    setRandomGoal() {
+    setRandomGoal(scope = 5) {
         this.goal = createVector(random(width), random(height));
         if (this.isGameOn()) {
             this.goal = this.goal.sub(width / 2, height / 2);
-            this.goal = this.goal.div(1.5);
+            this.goal = this.goal.div(scope);
             this.goal = this.goal.add(width / 2, height / 2);
             // this.goal.add(this.points[this.followedPointId].getPos());
         }

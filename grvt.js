@@ -6,10 +6,11 @@ let w;
 let newPointMass = 100;
 let renderOffsetSpeed = 0;
 let isDarkMode = false;
+let isGodMode = false;
 
 let simulationRunning = true,
                 displayForces = false,
-                borders = true,
+                borders = null,
                 newConnectionMode = false,
                 isUsingTouch = false;
 
@@ -22,10 +23,10 @@ function setup() {
     } else {
         createCanvas(window.innerWidth, window.innerHeight - document.querySelector("#bottom-controls").offsetHeight);
     }
-    
+
     pixelDensity(displayDensity());
     frameRate(TPS);
-    
+
     isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
         isDarkMode = event.matches;
@@ -53,6 +54,11 @@ function draw() {
         noFill();
         strokeWeight(3);
         stroke(200, 200);
+
+        if (isGodMode) {
+            stroke(175, 100, 50, 200);
+        }
+
         circle(mouseX, mouseY, massToRadius(newPointMass) * 2);
     }
 
@@ -70,6 +76,9 @@ function draw() {
     textSize(17);
     text("Mass available: " + w.getMassAvailable(), 30, 100);
 
+    fill(175, 100, 50, 175);
+    textSize(17);
+    text("Particles: " + w.getPointsAmount(), 30, 140);
 
     if (!simulationRunning) {
         fill(0, 100, 200, 100);
@@ -77,7 +86,6 @@ function draw() {
         textSize(75);
         noStroke();
         text("PAUSED", width / 2, height / 2);
-    } else {
     }
 
     const renderOffsetAcceleration = 0.05;
@@ -157,7 +165,7 @@ function keyPressed() {
         break;
 
     case 'b': case 'и':
-        borders = !borders;
+        borders.toggleActive();
         break;
 
     case 'c': case 'с':
@@ -166,6 +174,10 @@ function keyPressed() {
 
     case 'r': case 'к':
         resetGame();
+        break;
+
+    case '`':
+        isGodMode = !isGodMode;
         break;
 
     case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9':
@@ -195,6 +207,11 @@ function keyPressed() {
     }
 }
 
+function mouseWheel(event) {
+    let delta = event.delta;
+    newPointMass = min(max(25, newPointMass + delta * 5), !isGodMode ? w.getMassAvailable() : Infinity);
+}
+
 function resetNewConnectionRequest() {
     newConnectionFirstID = -1;
     newConnectionSecondID = -1;
@@ -204,4 +221,10 @@ function resetNewConnectionRequest() {
 
 function resetGame() {
     w = new LevelWorld(10);
+    isGodMode = false;
+    initBorders();
+}
+
+function initBorders() {
+    borders = new Borders(width / 2 - 1000, height / 2 - 1000, width / 2 + 1000, height / 2 + 1000);
 }

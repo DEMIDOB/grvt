@@ -32,6 +32,16 @@ class World {
         return 0;
     }
 
+    getPointsAmount() {
+        let ans = 0;
+        this.points.forEach(el => {
+            if (el != null) {
+                ++ans;
+            }
+        });
+        return ans;
+    }
+
     createPoint(initialPosition, mass) {
         const newId = this.getNextPointId();
         const newPoint = new Point(initialPosition, mass, newId, this.G);
@@ -88,13 +98,6 @@ class World {
             if (p == null) return;
             p.draw();
         });
-
-        if (borders) {
-            stroke(255, 0, 0);
-            strokeWeight(3);
-            fill(0, 0);
-            rect(0, 0, width, height);
-        }
 
         pop();
     }
