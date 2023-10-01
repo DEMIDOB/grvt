@@ -202,7 +202,8 @@ function keyPressed() {
         }
         break;
     case ' ':
-        simulationRunning = !simulationRunning;
+        // simulationRunning = !simulationRunning;
+        w.suckAll();
         break;
     }
 }

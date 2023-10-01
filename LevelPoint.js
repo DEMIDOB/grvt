@@ -3,15 +3,15 @@ class LevelPoint extends ConnectablePoint {
 
     modifyMovement(realVel) {
         if (borders.isActive()) {
-            if (this.pos.x + realVel.x < borders.left + this.radius) {
+            if (this.pos.x + realVel.x < borders.left +this.getRadius()) {
                 this.vel.x *= -friction;
-            } else if (this.pos.x + realVel.x > borders.right - this.radius) {
+            } else if (this.pos.x + realVel.x > borders.right -this.getRadius()) {
                 this.vel.x *= -friction;
             }
 
-            if (this.pos.y + realVel.y < borders.top + this.radius) {
+            if (this.pos.y + realVel.y < borders.top +this.getRadius()) {
                 this.vel.y *= -friction;
-            } else if (this.pos.y + realVel.y > borders.bottom - this.radius) {
+            } else if (this.pos.y + realVel.y > borders.bottom -this.getRadius()) {
                 this.vel.y *= -friction;
             }
 
@@ -19,5 +19,15 @@ class LevelPoint extends ConnectablePoint {
         }
 
         return realVel;
+    }
+
+    destroy() {
+        super.destroy()
+
+        this.connectedTo.forEach(point => {
+            if (point) {
+                this.removeConnectionTo(point);
+            }
+        });
     }
 }

@@ -56,6 +56,14 @@ class World {
         return newId;
     }
 
+    removePoint(point) {
+        if (!point || !point.id || !this.pointExists(point.id)) return;
+
+        if (this.points[point.id].type == ConnectablePoint.TYPE) {
+            
+        }
+    }
+
     tick() {
         this.points.forEach(p => {
             if (p == null) return;

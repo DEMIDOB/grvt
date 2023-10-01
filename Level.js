@@ -117,4 +117,23 @@ class LevelWorld extends World {
             this.followedPointId = id;
         }
     }
+
+    suckAll() {
+        if (!this.isGameOn()) { return; }
+
+        let followedPoint = this.points[this.followedPointId];
+
+        this.points.forEach(point => {
+            if (point && point.getId() !== this.followedPointId) {
+                if (point.getDistanceSqTo(followedPoint) > ((point.getRadius() + followedPoint.getRadius()) * 2) ** 2) {
+                    return;
+                }
+                point.destroy();
+                let pointMassHalf = round(point.getMass() / 2);
+                followedPoint.mass += pointMassHalf;
+                this.massAvailable += pointMassHalf;
+                this.points[point.getId()] = null;
+            }
+        });
+    }
 }

@@ -52,6 +52,10 @@ class ConnectablePoint extends Point {
     }
 
     removeConnectionTo(target) {
+        if (target.type != ConnectablePoint.TYPE) {
+            return;
+        }
+
         this.connectedTo[target.getId()] = NO_CONNECTION;
 
         if (target.isConnectedTo(this)) {

@@ -16,7 +16,7 @@ class Point {
         this.acc = createVector();
 
         this.mass = mass;
-        this.radius = massToRadius(mass);
+        // this.radius = massToRadius(mass);
         this.id = id;
 
         this.am = new AccelerationModifier(this, G);
@@ -35,7 +35,7 @@ class Point {
     }
 
     getRadius() {
-        return this.radius;
+        return massToRadius(this.mass);
     }
 
     getResForce() {
@@ -89,5 +89,9 @@ class Point {
         strokeWeight(5);
         line(this.pos.x, this.pos.y, this.pos.x + f.x, this.pos.y + f.y);
         noStroke();
+    }
+
+    destroy() {
+
     }
 }
