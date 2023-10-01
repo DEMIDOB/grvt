@@ -7,8 +7,8 @@
     <title>GRVT</title>
 
     <!-- PLEASE NO CHANGES BELOW THIS LINE (UNTIL I SAY SO) -->
-    <script language="javascript" type="text/javascript" src="libraries/p5.min.js"></script>
-    <script language="javascript" type="text/javascript" src="libraries/getEmPixels.min.js"></script>
+    <script language="javascript" type="text/javascript" src="p5.min.js"></script>
+    <script language="javascript" type="text/javascript" src="getEmPixels.min.js"></script>
     <script language="javascript" type="text/javascript" src="AccelerationModifier.js"></script>
     <script language="javascript" type="text/javascript" src="Point.js"></script>
     <script language="javascript" type="text/javascript" src="ConnectablePoint.js"></script>
@@ -43,7 +43,7 @@
             display: flex;
             justify-content: space-around;
 
-            background-color: rgba(175, 175, 175, 0.3);
+            background-color: rgba(175, 175, 175, 0);
 
             margin: 0;
             padding: 0.7em;
@@ -69,6 +69,10 @@
         }
 
         @media(min-width: 768px) {
+            #bottom-controls {
+                background-color: rgba(175, 175, 175, 0.3);
+            }
+            
             .control {
                 display: flex;
                 align-items: center;

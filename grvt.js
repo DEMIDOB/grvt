@@ -5,11 +5,13 @@ const friction = 0.5;
 let w;
 let newPointMass = 100;
 let renderOffsetSpeed = 0;
+let isDarkMode = false;
 
 let simulationRunning = true,
                 displayForces = false,
                 borders = true,
-                newConnectionMode = false;
+                newConnectionMode = false,
+                isUsingTouch = false;
 
 let newConnectionFirstID = -1, newConnectionSecondID = -1;
 let ticksSinceLastConnectionRequest = -1;
@@ -20,9 +22,14 @@ function setup() {
     } else {
         createCanvas(window.innerWidth, window.innerHeight - document.querySelector("#bottom-controls").offsetHeight);
     }
-    //fullScreen();
+    
     pixelDensity(displayDensity());
     frameRate(TPS);
+    
+    isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+        isDarkMode = event.matches;
+    });
 
     resetGame();
 }
@@ -42,10 +49,12 @@ function draw() {
         }
     }
 
-    noFill();
-    strokeWeight(3);
-    stroke(200, 200);
-    circle(mouseX, mouseY, massToRadius(newPointMass) * 2);
+    if (!isUsingTouch) {
+        noFill();
+        strokeWeight(3);
+        stroke(200, 200);
+        circle(mouseX, mouseY, massToRadius(newPointMass) * 2);
+    }
 
     fill(100, 0, 150, 255);
     textAlign(LEFT);
@@ -104,12 +113,14 @@ function draw() {
 }
 
 function mousePressed() {
+    isUsingTouch = false;
     if (mouseButton == LEFT && mouseY < height - document.querySelector("#bottom-controls").offsetHeight) {
         spawnNewPoint();
     }
 }
 
 function touchStarted() {
+    isUsingTouch = true;
     if (mouseY < height - document.querySelector("#bottom-controls").offsetHeight) {
         spawnNewPoint();
     }
