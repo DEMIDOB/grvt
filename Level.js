@@ -10,7 +10,7 @@ class LevelWorld extends World {
         this.backgroundColor = color(255);
 
         this.createLevelPoint(createVector(width / 2, height / 2), 25);
-        this.setRandomGoal(10);
+        this.setRandomGoal();
     }
 
     getScore() {

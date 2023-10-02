@@ -109,7 +109,8 @@ function draw() {
             spawnNewPoint();
             break;
         default:
-            console.log(key, keyCode);
+            // console.log(key, keyCode);
+            break;
         }
     } else {
         //renderOffsetSpeed = max(renderOffsetSpeed - renderOffsetAcceleration, 0);
@@ -201,8 +202,10 @@ function keyPressed() {
 
         }
         break;
+    case 'p':
+        simulationRunning = !simulationRunning;
+        break;
     case ' ':
-        // simulationRunning = !simulationRunning;
         w.suckAll();
         break;
     }
@@ -221,7 +224,7 @@ function resetNewConnectionRequest() {
 }
 
 function resetGame() {
-    w = new LevelWorld(10);
+    w = new SpaceLevel(10);
     isGodMode = false;
     initBorders();
 }
