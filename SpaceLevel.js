@@ -2,8 +2,10 @@ class SpaceLevel extends LevelWorld {
     constructor(G) {
         super(G);
         this.backgroundColor = color(0);
+        this.goalColor = color(150, 150, 0);
+        this.playerColor = color(0, 0, 255, 100);
 
-        this.pBackground = new ParallaxBackground(["spr_stars01.png", "spr_stars02.png"]);
+        this.pBackground = new ParallaxBackground(["http://dandemidov.com/spr_stars01.png", "http://spr_stars02.png"]);
     }
 
     drawBackground(offset) {
@@ -17,7 +19,7 @@ class SpaceLevel extends LevelWorld {
         let newPointId = super.createLevelPoint(initialPosition, mass);
 
         if (newPointId + 1) {
-            this.points[newPointId].color = color(255, 135);
+            this.points[newPointId].color = color(183, 135);
         }
     }
 }

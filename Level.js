@@ -7,7 +7,10 @@ class LevelWorld extends World {
         this.followedPointId = 0;
         this.score = 0;
         this.massAvailable = 425;
+
         this.backgroundColor = color(255);
+        this.goalColor = color(100, 0, 150);
+        this.playerColor = color(0, 255, 0, 100);
 
         this.createLevelPoint(createVector(width / 2, height / 2), 25);
         this.setRandomGoal();
@@ -37,12 +40,12 @@ class LevelWorld extends World {
 
         if (this.isGameOn()) {
             this.points[this.followedPointId].displayForce();
-            this.points[this.followedPointId].draw(color(0, 255, 0, 100));
+            this.points[this.followedPointId].draw(this.playerColor);
         }
 
         // Draw the goal:
         if (this.isGameOn()) {
-            fill(100, 0, 150);
+            fill(this.goalColor);
             push();
             translate(
                 max(-this.renderOffset.x, min(this.goal.x,  width - this.renderOffset.x)),
@@ -51,8 +54,8 @@ class LevelWorld extends World {
 
             if (this.goal.x < -this.renderOffset.x || this.goal.x > width - this.renderOffset.x ||
                 this.goal.y < -this.renderOffset.y || this.goal.y > height - this.renderOffset.y) {
-                fill(255, 200);
-                stroke(100, 0, 150);
+                fill(this.backgroundColor, 200);
+                stroke(this.goalColor);
             }
 
             rotate(this.goalRotationAngle);
