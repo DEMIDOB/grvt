@@ -1,12 +1,4 @@
 class LevelWorld extends World {
-
-    // private PVector goal;
-    // private float goalRotationAngle = 0;
-
-    // private int followedPointId = 0;
-
-    // private int score;
-
     constructor(G) {
         super(G);
 

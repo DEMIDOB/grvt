@@ -3,9 +3,6 @@ const NO_CONNECTION = 0, STRONG_CONNECTION = 1, WEAK_CONNECTION = 2;
 class ConnectablePoint extends Point {
      static TYPE = 1;
 
-    // let connectedTo;
-    // private float[] connectionRestDistances;
-
     constructor(initialPosition, mass, id, G) {
         super(initialPosition, mass, id, G);
 

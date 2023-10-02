@@ -1,13 +1,6 @@
 class Point {
     static TYPE = 0;
 
-    //protected PVector pos, vel, acc;
-    //protected float type;
-    //protected AccelerationModifier am;
-
-    //private float mass, radius;
-    //private int id;
-
     constructor(initialPosition, mass, id, G) {
         this.type = 0; // this parameter is overwritten by class extensions
 
