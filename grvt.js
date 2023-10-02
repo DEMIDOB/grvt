@@ -62,21 +62,21 @@ function draw() {
         circle(mouseX, mouseY, massToRadius(newPointMass) * 2);
     }
 
-    fill(100, 0, 150, 255);
+    fill(255, 255);
     textAlign(LEFT);
     textSize(35);
     noStroke();
     text("Score: " + w.getScore(), 30, 45);
 
-    fill(100, 0, 150, 175);
+    fill(255, 175);
     textSize(17);
     text("Current spawn mass: " + newPointMass, 30, 80);
 
-    fill(100, 0, 150, 175);
+    fill(255, 175);
     textSize(17);
     text("Mass available: " + w.getMassAvailable(), 30, 100);
 
-    fill(175, 100, 50, 175);
+    fill(255, 175);
     textSize(17);
     text("Particles: " + w.getPointsAmount(), 30, 140);
 

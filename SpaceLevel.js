@@ -12,4 +12,12 @@ class SpaceLevel extends LevelWorld {
         background(this.backgroundColor);
         this.pBackground.draw(this.renderOffset);
     }
+
+    createLevelPoint(initialPosition, mass) {
+        let newPointId = super.createLevelPoint(initialPosition, mass);
+
+        if (newPointId + 1) {
+            this.points[newPointId].color = color(255, 135);
+        }
+    }
 }

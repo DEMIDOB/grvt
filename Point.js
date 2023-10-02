@@ -11,6 +11,7 @@ class Point {
         this.mass = mass;
         // this.radius = massToRadius(mass);
         this.id = id;
+        this.color = color(0, 100);
 
         this.am = new AccelerationModifier(this, G);
     }
@@ -65,7 +66,7 @@ class Point {
 
     draw(c) {
         if (!c) {
-            c = color(0, 100);
+            c = this.color;
         }
 
         noStroke();

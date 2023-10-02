@@ -23,7 +23,6 @@ class ParallaxBackground {
         push();
         translate(-offset.x, -offset.y);
 
-        console.log("=")
         for (let l = 0; l < this.layers.length; l++) {
             const texture = this.layers[l];
             let factor = (this.layers.length - l) * this.layersDistance;
@@ -33,7 +32,6 @@ class ParallaxBackground {
 
             layerOffset.x += texture.width  * (Math.floor(-layerOffset.x / texture.width));
             layerOffset.y += texture.height * (Math.floor(-layerOffset.y / texture.height));
-            // console.log(l, (Math.floor(-layerOffset.x / texture.width)))
 
             for (let xo = 0; xo < 2; ++xo) {
                 for (let yo = 0; yo < 2; ++yo) {
@@ -41,7 +39,6 @@ class ParallaxBackground {
                 }
             }
         }
-        console.log("=")
 
         pop();
     }
