@@ -3,7 +3,7 @@ const K = 500;
 const friction = 0.5;
 
 let w;
-let newPointMass = 100;
+let newPointMass = 200;
 let renderOffsetSpeed = 0;
 let isDarkMode = false;
 let isGodMode = false;
