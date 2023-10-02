@@ -60,7 +60,7 @@ class World {
         if (!point || !point.id || !this.pointExists(point.id)) return;
 
         if (this.points[point.id].type == ConnectablePoint.TYPE) {
-            
+
         }
     }
 
@@ -88,19 +88,14 @@ class World {
         });
     }
 
+    drawBackground() { }
+
     draw() {
         push();
 
         translate(this.renderOffset.x, this.renderOffset.y);
 
-        const step = 100;
-        for (let x = step * (int) ((-this.renderOffset.x - (width / 2)) / step); x <= step * (int) ((-this.renderOffset.x + (width / 2)) / step); x += step) {
-            for (let y = step * (int) ((-this.renderOffset.y - (height / 2)) / step); y <= step * (int) ((-this.renderOffset.y + (height / 2)) / step); y += step) {
-                cross(x, y, step / 5);
-            }
-        }
-
-        cross(0, 0, step);
+        this.drawBackground();
 
         this.points.forEach(p => {
             if (p == null) return;

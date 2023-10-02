@@ -15,6 +15,7 @@ class LevelWorld extends World {
         this.followedPointId = 0;
         this.score = 0;
         this.massAvailable = 425;
+        this.backgroundColor = color(255);
 
         this.createLevelPoint(createVector(width / 2, height / 2), 25);
         this.setRandomGoal(10);
@@ -22,6 +23,18 @@ class LevelWorld extends World {
 
     getScore() {
         return this.score;
+    }
+
+    drawBackground() {
+        background(this.backgroundColor);
+        const step = 100;
+        for (let x = step * (int) ((-this.renderOffset.x - (width / 2)) / step); x <= step * (int) ((-this.renderOffset.x + (width / 2)) / step); x += step) {
+            for (let y = step * (int) ((-this.renderOffset.y - (height / 2)) / step); y <= step * (int) ((-this.renderOffset.y + (height / 2)) / step); y += step) {
+                cross(x, y, step / 5);
+            }
+        }
+
+        cross(0, 0, step);
     }
 
     draw() {
