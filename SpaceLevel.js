@@ -5,7 +5,7 @@ class SpaceLevel extends LevelWorld {
         this.goalColor = color(150, 150, 0);
         this.playerColor = color(0, 0, 255, 100);
 
-        this.pBackground = new ParallaxBackground(["http://dandemidov.com/spr_stars01.png", "http://spr_stars02.png"]);
+        this.pBackground = new ParallaxBackground(["https://dandemidov.com/spr_stars01.png", "https//spr_stars02.png"]);
     }
 
     drawBackground(offset) {
