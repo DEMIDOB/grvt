@@ -1,5 +1,6 @@
 class LevelWorld extends World {
     static PLAYER_STARTING_MASS = 25;
+    static MASS_ABSORPTION_RATIO = 1/64;
 
     constructor(G) {
         super(G);
@@ -13,6 +14,8 @@ class LevelWorld extends World {
         this.backgroundColor = color(255);
         this.goalColor = color(100, 0, 150);
         this.playerColor = color(0, 255, 0, 100);
+
+        this.massAbsorptionRatio = LevelWorld.MASS_ABSORPTION_RATIO;
 
         this.createLevelPoint(createVector(width / 2, height / 2), LevelWorld.PLAYER_STARTING_MASS);
         this.setRandomGoal();
@@ -94,7 +97,7 @@ class LevelWorld extends World {
 
     reachedTheGoal() {
         this.massAvailable += 1000 * (++this.score);
-        this.setRandomGoal();
+        this.setRandomGoal(-1);
     }
 
     createLevelPoint(initialPosition, mass) {
@@ -111,7 +114,32 @@ class LevelWorld extends World {
         return newId;
     }
 
+    getPlayerPoint() {
+        if (!this.isGameOn()) {
+            return null;
+        }
+
+        return this.points[this.followedPointId];
+    }
+
+    requestMassWithdrawal(mass) {
+        let massDelta = -mass * this.massAbsorptionRatio;
+
+        let player = this.getPlayerPoint();
+        if (!player || player.getMass() + massDelta <= 0) {
+            return false;
+        }
+
+        player.mass += massDelta;
+
+        return true;
+    }
+
     createEnemy(initialPosition, mass) {
+        if (!this.requestMassWithdrawal(mass)) {
+            return;
+        }
+
         return this.createLevelPoint(initialPosition, mass);
     }
 
@@ -124,6 +152,14 @@ class LevelWorld extends World {
     }
 
     setRandomGoal(scope = 3) {
+        if (borders && scope === -1) {
+            console.log("YEE!");
+            this.goal = createVector(random(borders.right - borders.left),
+                                    random(borders.bottom - borders.top));
+            this.goal = this.goal.add(borders.left, borders.top);
+            return;
+        }
+
         this.goal = createVector(random(width), random(height));
         if (this.isGameOn()) {
             this.goal = this.goal.sub(width / 2, height / 2);
@@ -150,7 +186,7 @@ class LevelWorld extends World {
                     return;
                 }
                 point.destroy();
-                let playerMassDelta = round(point.getMass() / 8);
+                let playerMassDelta = round(point.getMass() * this.massAbsorptionRatio);
                 followedPoint.mass += playerMassDelta;
                 this.massAvailable += point.getMass() - playerMassDelta;
                 this.points[point.getId()] = null;

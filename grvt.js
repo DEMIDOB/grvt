@@ -223,6 +223,7 @@ function resetNewConnectionRequest() {
 
 function resetGame() {
     w = isDarkMode ? new SpaceLevel(10) : new LevelWorld(10);
+    newPointMass = isDarkMode ? 400 : 200;
     isGodMode = false;
     initBorders();
 }

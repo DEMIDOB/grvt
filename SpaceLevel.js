@@ -22,7 +22,7 @@ class SpaceLevel extends LevelWorld {
         if (this.pointExists(0)) {
             this.removePoint(this.points[0]);
         }
-        return this.createLevelPoint(createVector(width / 2, height / 2), 75, "spaceship.png");
+        return this.createLevelPoint(createVector(width / 2, height / 2), 150, "spaceship.png");
     }
 
     createRock(initialPosition, mass) {
@@ -30,6 +30,10 @@ class SpaceLevel extends LevelWorld {
     }
 
     createEnemy(initialPosition, mass) {
+        if (!this.requestMassWithdrawal(mass)) {
+            return;
+        }
+
         return this.createRock(initialPosition, mass);
     }
 
