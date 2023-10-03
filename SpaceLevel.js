@@ -6,6 +6,7 @@ class SpaceLevel extends LevelWorld {
         this.playerColor = color(0, 0, 255, 100);
 
         this.createSpaceship();
+        this.massAvailable = 400;
 
         this.pBackground = new ParallaxBackground(["https://dandemidov.com/spr_stars01.png", "https://dandemidov.com/spr_stars02.png"]);
     }

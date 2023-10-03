@@ -43,11 +43,18 @@ class LevelWorld extends World {
         if (this.isGameOn()) {
             this.points[this.followedPointId].displayForce();
             this.points[this.followedPointId].draw(this.playerColor);
+
+            noFill();
+            strokeWeight(3);
+            stroke(200, 50);
+            circle(this.points[this.followedPointId].pos.x, this.points[this.followedPointId].pos.y, this.points[this.followedPointId].getRadius() * 6);
         }
 
         // Draw the goal:
         if (this.isGameOn()) {
             fill(this.goalColor);
+            noStroke();
+
             push();
             translate(
                 max(-this.renderOffset.x, min(this.goal.x,  width - this.renderOffset.x)),
@@ -139,13 +146,13 @@ class LevelWorld extends World {
 
         this.points.forEach(point => {
             if (point && point.getId() !== this.followedPointId) {
-                if (point.getDistanceSqTo(followedPoint) > ((point.getRadius() + followedPoint.getRadius()) * 2) ** 2) {
+                if (point.getDistanceSqTo(followedPoint) > (followedPoint.getRadius() * 3 + point.getRadius()) ** 2) {
                     return;
                 }
                 point.destroy();
-                let pointMassHalf = round(point.getMass() / 2);
-                followedPoint.mass += pointMassHalf;
-                this.massAvailable += pointMassHalf;
+                let playerMassDelta = round(point.getMass() / 8);
+                followedPoint.mass += playerMassDelta;
+                this.massAvailable += point.getMass() - playerMassDelta;
                 this.points[point.getId()] = null;
             }
         });
