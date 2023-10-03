@@ -5,6 +5,8 @@ class SpaceLevel extends LevelWorld {
         this.goalColor = color(150, 150, 0);
         this.playerColor = color(0, 0, 255, 100);
 
+        this.createSpaceship();
+
         this.pBackground = new ParallaxBackground(["https://dandemidov.com/spr_stars01.png", "https://dandemidov.com/spr_stars02.png"]);
     }
 
@@ -16,11 +18,18 @@ class SpaceLevel extends LevelWorld {
     }
 
     createSpaceship() {
-        this.createLevelPoint(createVector(width / 2, height / 2), 75, "spaceship.png");
+        if (this.pointExists(0)) {
+            this.removePoint(this.points[0]);
+        }
+        return this.createLevelPoint(createVector(width / 2, height / 2), 75, "spaceship.png");
     }
 
     createRock(initialPosition, mass) {
-        this.createLevelPoint(initialPosition, mass, "rock.png");
+        return this.createLevelPoint(initialPosition, mass, "rock.png");
+    }
+
+    createEnemy(initialPosition, mass) {
+        return this.createRock(initialPosition, mass);
     }
 
     createLevelPoint(initialPosition, mass, texturePath = null) {

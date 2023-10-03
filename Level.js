@@ -1,4 +1,6 @@
 class LevelWorld extends World {
+    static PLAYER_STARTING_MASS = 25;
+
     constructor(G) {
         super(G);
 
@@ -12,7 +14,7 @@ class LevelWorld extends World {
         this.goalColor = color(100, 0, 150);
         this.playerColor = color(0, 255, 0, 100);
 
-        this.createSpaceship();
+        this.createLevelPoint(createVector(width / 2, height / 2), LevelWorld.PLAYER_STARTING_MASS);
         this.setRandomGoal();
     }
 
@@ -100,6 +102,10 @@ class LevelWorld extends World {
         this.massAvailable -= mass;
 
         return newId;
+    }
+
+    createEnemy(initialPosition, mass) {
+        return this.createLevelPoint(initialPosition, mass);
     }
 
     isGameOn() {

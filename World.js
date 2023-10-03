@@ -57,11 +57,10 @@ class World {
     }
 
     removePoint(point) {
-        if (!point || !point.id || !this.pointExists(point.id)) return;
+        if (!point || !this.pointExists(point.getId())) return;
 
-        if (this.points[point.id].type == ConnectablePoint.TYPE) {
-
-        }
+        this.points[point.id].destroy();
+        this.points[point.id] = null;
     }
 
     tick() {

@@ -5,7 +5,7 @@ const friction = 0.5;
 let w;
 let newPointMass = 200;
 let renderOffsetSpeed = 0;
-let isDarkMode = false;
+let isDarkMode = true;
 let isGodMode = false;
 
 let simulationRunning = true,
@@ -26,11 +26,6 @@ function setup() {
 
     pixelDensity(displayDensity());
     frameRate(TPS);
-
-    isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-        isDarkMode = event.matches;
-    });
 
     resetGame();
 }
@@ -142,7 +137,7 @@ function spawnNewPoint(withKeyboard = false) {
 
     let loc = w.getRenderOffset().mult(-1);
     loc.add(mouseX, mouseY);
-    w.createRock(loc, newPointMass);
+    w.createEnemy(loc, newPointMass);
 }
 
 function keyPressed() {
@@ -173,6 +168,9 @@ function keyPressed() {
         requestNewConnectionsUI();
         break;
 
+    case 's': case 'ы':
+        isDarkMode = !isDarkMode;
+        // and fall through...
     case 'r': case 'к':
         resetGame();
         break;
@@ -224,7 +222,7 @@ function resetNewConnectionRequest() {
 }
 
 function resetGame() {
-    w = new SpaceLevel(10);
+    w = isDarkMode ? new SpaceLevel(10) : new LevelWorld(10);
     isGodMode = false;
     initBorders();
 }
