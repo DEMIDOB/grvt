@@ -1,5 +1,25 @@
 class LevelPoint extends ConnectablePoint {
     // static TYPE should be inherited from ConnectablePoint because their behavior is identical
+    constructor(initialPosition, mass, id, G, texturePath = null) {
+        super(initialPosition, mass, id, G);
+        this.texture = null;
+        this.texturePath = texturePath;
+        this.applyTexture(texturePath);
+    }
+
+    applyTexture(texturePath) {
+        if (texturePath && !texturePath.startsWith("http")) {
+            texturePath = "https://dandemidov.com/" + texturePath;
+        }
+        this.texturePath = texturePath;
+        this.loadTexture();
+    }
+
+    loadTexture() {
+        if (this.texturePath) {
+            this.texture = loadImage(this.texturePath);
+        }
+    }
 
     modifyMovement(realVel) {
         if (borders.isActive()) {
@@ -19,6 +39,26 @@ class LevelPoint extends ConnectablePoint {
         }
 
         return realVel;
+    }
+
+    draw() {
+        if (!this.texture) {
+            super.draw();
+            return;
+        }
+
+        // calculate the rotation angle based on the point's velocity vector
+        let angle = Math.atan2(this.vel.y, this.vel.x);
+        let size = this.getRadius() * 2;
+
+        push();
+
+        translate(this.pos.x, this.pos.y);
+        rotate(Math.PI / 2 + angle);
+        imageMode(CENTER);
+        image(this.texture, 0, 0, size, size);
+
+        pop();
     }
 
     destroy() {

@@ -12,7 +12,7 @@ class LevelWorld extends World {
         this.goalColor = color(100, 0, 150);
         this.playerColor = color(0, 255, 0, 100);
 
-        this.createLevelPoint(createVector(width / 2, height / 2), 25);
+        this.createSpaceship();
         this.setRandomGoal();
     }
 

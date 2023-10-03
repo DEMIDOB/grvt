@@ -142,7 +142,7 @@ function spawnNewPoint(withKeyboard = false) {
 
     let loc = w.getRenderOffset().mult(-1);
     loc.add(mouseX, mouseY);
-    w.createLevelPoint(loc, newPointMass);
+    w.createRock(loc, newPointMass);
 }
 
 function keyPressed() {
