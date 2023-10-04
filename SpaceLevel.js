@@ -8,7 +8,7 @@ class SpaceLevel extends LevelWorld {
         this.createSpaceship();
         this.massAvailable = 400;
 
-        this.pBackground = new ParallaxBackground(["https://dandemidov.com/spr_stars01.png", "https://dandemidov.com/spr_stars02.png"]);
+        this.pBackground = new ParallaxBackground(["https://grvt.dandemidov.com/spr_stars01.png", "https://grvt.dandemidov.com/spr_stars02.png"]);
     }
 
     drawBackground(offset) {

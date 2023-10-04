@@ -9,7 +9,7 @@ class LevelPoint extends ConnectablePoint {
 
     applyTexture(texturePath) {
         if (texturePath && !texturePath.startsWith("http")) {
-            texturePath = "https://dandemidov.com/" + texturePath;
+            texturePath = "https://grvt.dandemidov.com/" + texturePath;
         }
         this.texturePath = texturePath;
         this.loadTexture();
